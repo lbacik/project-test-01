@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <strong>DB</strong>
+
+    <ul>
+        {% for item in itemsInDb %}
+            <li>
+                {{ item.name }} = {{ item.value }}
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
