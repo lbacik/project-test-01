@@ -15,6 +15,8 @@ RUN docker-php-ext-install \
 COPY . ${PROJECT_DIR}
 WORKDIR ${PROJECT_DIR}
 
-RUN composer install --no-dev
+RUN composer install
+# FIXME --no-dev causes problems :(
+# --no-dev --optimize-autoloader
 
 EXPOSE 80
