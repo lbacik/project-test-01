@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\Entity\Items;
+use App\Entity\Item;
 
 class UploadService
 {
@@ -12,7 +12,7 @@ class UploadService
         private RedisService $redisService
     ) {}
 
-    /** @param Items[] $items */
+    /** @param Item[] $items */
     public function uploadToRedis(array $items): void
     {
         $keyValuePairs = array_reduce(
