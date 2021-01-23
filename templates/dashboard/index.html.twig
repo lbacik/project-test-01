@@ -1,15 +1,36 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <div style="width: 700px; margin: auto;">
+        <div>
+            <div style="float: left; margin-right: 50px;">
+            {{ include('dashboard/key-value-table.html.twig',
+                    {
+                        tableName: 'DB',
+                        items: itemsInDb,
+                    },
+                    with_context=false
+                )
+            }}
+            </div>
 
-    <strong>DB</strong>
+            <div>
+            {{ include('dashboard/key-value-table.html.twig',
+                    {
+                        tableName: 'Redis',
+                        items: itemsInRedis,
+                    },
+                    with_context=false
+                )
+            }}
+            </div>
+        </div>
 
-    <ul>
-        {% for item in itemsInDb %}
-            <li>
-                {{ item.name }} = {{ item.value }}
-            </li>
-        {% endfor %}
-    </ul>
+        <div style="clear: both; margin-top: 50px">
+            <div style="width: 200px; margin: auto">
+                {{ form(UploadForm) }}
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
