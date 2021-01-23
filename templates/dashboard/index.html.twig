@@ -1,34 +1,28 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div style="width: 700px; margin: auto;">
-        <div>
-            <div style="float: left; margin-right: 50px;">
-            {{ include('dashboard/key-value-table.html.twig',
-                    {
-                        tableName: 'DB',
-                        items: itemsInDb,
-                    },
-                    with_context=false
-                )
-            }}
-            </div>
+    <div class="parent-container d-flex">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <key-value-table :items="{{ itemsInDb }}"></key-value-table>
+                </div>
 
-            <div>
-            {{ include('dashboard/key-value-table.html.twig',
-                    {
-                        tableName: 'Redis',
-                        items: itemsInRedis,
-                    },
-                    with_context=false
-                )
-            }}
+                <div class="col">
+                    {{ include('dashboard/key-value-table.html.twig',
+                        {
+                            tableName: 'Redis',
+                            items: itemsInRedis,
+                        },
+                        with_context=false
+                    )
+                    }}
+                </div>
             </div>
-        </div>
-
-        <div style="clear: both; margin-top: 50px">
-            <div style="width: 200px; margin: auto">
-                {{ form(UploadForm) }}
+            <div class="row">
+                <div class="container justify-content-center d-flex">
+                    {{ form(UploadForm) }}
+                </div>
             </div>
         </div>
     </div>

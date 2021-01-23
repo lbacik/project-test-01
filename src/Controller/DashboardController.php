@@ -42,11 +42,13 @@ class DashboardController extends AbstractController
             $redisService->getAll()
         );
 
+        $itemsInDbJson = $this->convertItemsToJson($itemsInDb);
+
         return new Response(
             $this->twig->render(
                 'dashboard/index.html.twig',
                 [
-                    'itemsInDb' => $itemsInDb,
+                    'itemsInDb' => $itemsInDbJson,
                     'itemsInRedis' => $itemsInRedis,
                     'UploadForm' => $form->createView(),
                 ]
@@ -79,5 +81,15 @@ class DashboardController extends AbstractController
             $result[] = $obj;
         }
         return $result;
+    }
+
+    private function convertItemsToJson(array $items): string
+    {
+        $mapped = array_map(
+            fn($item) => ['name' => $item->getName(), 'value' => $item->getValue()],
+            $items
+        );
+
+        return json_encode($mapped);
     }
 }
