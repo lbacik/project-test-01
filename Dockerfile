@@ -7,10 +7,14 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 RUN apt-get update && apt-get -y install --no-install-recommends \
     unzip \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN docker-php-ext-install \
-    pdo_mysql
+    && rm -rf /var/lib/apt/lists/* \
+    && docker-php-ext-install \
+        pdo_mysql \
+    && pecl install \
+        redis \
+    && rm -rf /tmp/pear \
+    && docker-php-ext-enable \
+        redis
 
 COPY . ${PROJECT_DIR}
 WORKDIR ${PROJECT_DIR}
