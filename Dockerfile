@@ -1,6 +1,6 @@
 FROM php:apache
 
-ARG PROJECT_DIR=/var/www/html/
+ARG PROJECT_DIR=/opt/project
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
@@ -18,5 +18,8 @@ WORKDIR ${PROJECT_DIR}
 RUN composer install
 # FIXME --no-dev causes problems :(
 # --no-dev --optimize-autoloader
+
+RUN rm -drf /var/www/html \
+    && ln -s ${PROJECT_DIR}/public/ /var/www/html
 
 EXPOSE 80
